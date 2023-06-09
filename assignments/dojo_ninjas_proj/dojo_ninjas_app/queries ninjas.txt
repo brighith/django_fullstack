@@ -1,0 +1,52 @@
+##Create and run the migration files to create the tables in your database 
+python manage.py makemigrations
+ python manage.py migrate
+##Run the shell and import your models
+ python manage.py shell
+  from dojo_ninjas_app.models import Dojo,Ninja
+###Query: Create 3 new dojos
+ Dojo.objects.all()
+ Dojo.objects.create(name ="mazin", city ="hebron", state ="palstine")
+ Dojo.objects.create(name ="walid", city ="bethlehem", state ="palstine")
+ Dojo.objects.create(name ="yousef", city ="ramallah", state ="palstine")
+###Query: Delete the 3 dojos you just created
+ d=Dojo.objects.all()
+ d.delete()
+###Query: Create 3 more dojos
+ Dojo.objects.create(name ="Axsos", city ="cairo", state ="egypt")
+ Dojo.objects.create(name ="Dilima", city ="amman", state ="jordan")
+ Dojo.objects.create(name ="Mena", city ="al-zarqa", state ="jordan")
+###Query: Create 3 ninjas that belong to the first dojo
+dj1=Dojo.objects.get(id=7)
+ nanja1=Ninja.objects.create(first_name="yaseen", last_name="sbeih", dojo=dj1)
+dj11=Dojo.objects.get(id=7)
+nanja11=Ninja.objects.create(first_name="maysar", last_name="awad", dojo=dj11)
+dj111=Dojo.objects.get(id=7)
+nanja111=Ninja.objects.create(first_name="mzain", last_name="brighith", dojo=dj111)
+###Query: Create 3 ninjas that belong to the second dojo
+dj2=Dojo.objects.get(id=8)
+nanja2=Ninja.objects.create(first_name="salam", last_name="tmeze", dojo=dj2)
+dj21=Dojo.objects.get(id=8)
+nanja21=Ninja.objects.create(first_name="khalel", last_name="whede", dojo=dj21)
+dj211=Dojo.objects.get(id=8)
+nanja211=Ninja.objects.create(first_name="kamal", last_name="ayash", dojo=dj211)
+###Query: Create 3 ninjas that belong to the third dojo
+dj3=Dojo.objects.get(id=9)
+nanja3=Ninja.objects.create(first_name="khaid", last_name="mhamed", dojo=dj3)
+dj31=Dojo.objects.get(id=9)
+nanja31=Ninja.objects.create(first_name="hasan", last_name="alama", dojo=dj31)
+dj311=Dojo.objects.get(id=9)
+nanja311=Ninja.objects.create(first_name="yarik", last_name="srour", dojo=dj311)
+###Query: Retrieve all the ninjas from the first dojo
+Dojo.objects.first().ninjas.all()
+###Query: Retrieve all the ninjas from the last dojo
+Dojo.objects.last().ninjas.all()
+###Query: Retrieve the last ninja's dojo
+Ninja.objects.last().dojo_id
+
+****desc = models.TextField()****
+
+from dojo_ninjas_app.models import Dojo
+Dojo.objects.create(name ="taiwan", city ="tokyo", state="japan",desc="this is the longest cohort")
+
+ 
