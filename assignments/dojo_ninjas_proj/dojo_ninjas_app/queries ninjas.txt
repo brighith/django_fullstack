@@ -42,7 +42,7 @@ Dojo.objects.first().ninjas.all()
 ###Query: Retrieve all the ninjas from the last dojo
 Dojo.objects.last().ninjas.all()
 ###Query: Retrieve the last ninja's dojo
-Ninja.objects.last().dojo_id
+Ninja.objects.last().dojo
 
 ****desc = models.TextField()****
 
