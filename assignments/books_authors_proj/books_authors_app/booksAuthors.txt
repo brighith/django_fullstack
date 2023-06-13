@@ -1,0 +1,53 @@
+from books_authors_app.models import * \
+Book.objects.all()\
+Author.objects.all()\
+ >>> c_sharp = Book.objects.create (title = "C sharp", desc = "Good")\
+>>> Java = Book.objects.create (title = "Java", desc = "Good") \
+>>> Python = Book.objects.create (title = "Python", desc = "Good")\
+>>> PHP = Book.objects.create (title = "PHP", desc = "Good")\
+>>> Ruby = Book.objects.create (title = "Ruby", desc = "Good")\
+\
+Author.objects.create( first_name = "Fyodor" , last_name = "Dostoevsky" )\
+ Author.objects.create( first_name = "William" , last_name = "Shakespeare" )\
+Author.objects.create( first_name = "Lau" , last_name = "Tzu" )\
+\
+change_name = Book.objects.get(id = 1)\
+change_name.title = "C#"\
+change_name.save()\
+\
+changename = Author.objects.get(id=5)\
+>>> changename.first_name = "Bill"\
+>>> changename.save()\
+\
+first = Author.objects.get(id = 1)\
+>>> book1 = Book.objects.get(id =1)\
+>>> book2 = Book.objects.get(id =2)\
+first.books.add(book1)\
+>>> first.books.add(book2)\
+\
+first.books.add(book1)\
+>>> first.books.add(book2)\
+>>> second = Author.objects.get (id = 2)\
+>>> book3 = Book.objects.get (id = 3)\
+>>> second.books.add(book1)\
+>>> second.books.add(book2)\
+>>> second.books.add(book3)\
+\
+fourth = Author.objects.get (id = 5)\
+>>> fourth.books.add(book1,book2)\
+>>> fourth.books.add(book3,book4,book5)\
+\
+book3.books_authors.all()\
+\
+y=book3.books_authors.get(id =2)\
+y.delete()\
+y.save()\
+\
+author5 = Author.objects.get(id =6)\
+>>> book3.books_authors.add(author5)\
+\
+x = Author.objects.get(id = 4\
+x.books.all()\
+x.books.values()\
+\
+book5.books_authors.all()}
