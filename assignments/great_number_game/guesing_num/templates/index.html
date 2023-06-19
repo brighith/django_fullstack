@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Welcome to the Great Number Game!</h1>
+      <p>I am thinking of a number between 1 and 100</p>
+      <p>Take a guess!</p>
+    </div>
+    <form action="show/" method="post" class="ran_num">
+      {% csrf_token %}
+      <input type="hidden" name="myNumber" value="register" />
+      <label for="show/"></label>
+      <input type="number" name="newnumber" required />
+      <button type="submit">Submit</button>
+    </form>
+    <div class="display">
+      <h2>{{request.session.comments}}</h2>
+      <h3>{{request.session.numbers}}</h3>
+      <h4>You have: {{ request.session.guess_left}} guess left</h4>
+    </div>
+    <form
+      action="play_again/"
+      method="post"
+      name="play_again"
+      class="another_game"
+    >
+      {% csrf_token %}
+      <button type="submit">Reset</button>
+    </form>
+  </body>
+</html>

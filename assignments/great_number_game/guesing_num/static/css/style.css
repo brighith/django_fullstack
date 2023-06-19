@@ -1,0 +1,51 @@
+* {
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+}
+body {
+  display: block;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  background-color: blueviolet;
+}
+
+.header {
+  text-align: center;
+  height: 100px;
+}
+
+.ran_num {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  width: fit-content;
+  height: 40px;
+}
+body button {
+  color: aqua;
+  background-color: brown;
+  border: 1px solid brown;
+  box-shadow: 2px 2px rgb(167, 103, 9);
+}
+
+.leadboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.another_game {
+  display: flex;
+  margin-top: 10px;
+}
+
+.display {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
