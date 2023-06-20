@@ -1,0 +1,26 @@
+* {
+  margin: 0 auto;
+}
+
+#container {
+  width: 300px;
+  text-align: center;
+  box-shadow: 10px 10px 10px 10px blueviolet;
+  padding: 20px;
+}
+
+#container button {
+  color: black;
+  background-color: blueviolet;
+  border: 1px solid blueviolet;
+  box-shadow: 5px 5px 5px 5px rgb(0, 0, 0);
+}
+
+#container a {
+  color: blueviolet;
+}
+
+/* .links {
+    display: flex;
+    justify-content: space-around;
+} */

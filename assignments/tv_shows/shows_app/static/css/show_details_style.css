@@ -1,0 +1,25 @@
+* {
+  margin: 0 auto;
+}
+
+#container {
+  width: 300px;
+  align-items: center;
+  text-align: center;
+  box-shadow: 5px 5px 5px 5px blueviolet;
+  padding: 15px;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  color: blueviolet;
+}
+
+#container a {
+  color: blueviolet;
+}
+
+.display span {
+  color: blueviolet;
+}

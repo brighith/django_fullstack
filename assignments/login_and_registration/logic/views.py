@@ -47,7 +47,7 @@ def login(request):
             request.session['username'] = logged_user.first_name
             request.session['status'] = "logged in"
             return redirect('/success')
-        print("""Wrong password""")
+        print("Wrong password")
     return redirect("/")
 
 
@@ -64,5 +64,5 @@ def success(request):
 def logout(request):
     del request.session['username']
     del request.session['status']
-   # request.session.flush()
+# request.session.flush()
     return redirect('/')
