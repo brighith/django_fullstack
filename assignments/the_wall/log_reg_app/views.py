@@ -1,68 +1,73 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from .models import User
 from django.contrib import messages
 import bcrypt
 
 
 def index(request):
-    return render(request, "index.html")
+
+    context = {
+        'users': User.objects.all()
+    }
+
+    return render(request, 'index.html', context)
 
 
 def register(request):
 
+    password_from_form = request.POST['password']
+    pw_hash = bcrypt.hashpw(password_from_form.encode(),
+                            bcrypt.gensalt()).decode()
+    print("this is the password", pw_hash)
     errors = User.objects.basic_validator(request.POST)
+
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/')
 
-    if User.objects.filter(email=request.POST['email']).exists():
-        messages.error(request, "Email Exist, try to use a unique Email")
-        return redirect('/')
     else:
-        fname = request.POST['fname']
-        lname = request.POST['lname']
-        email = request.POST['email']
-        password = request.POST['password']
-        pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        birthday = request.POST['birthday']
-        request.session['username'] = fname + " " + lname
-        request.session['status'] = "Registered"
-        User.objects.create(first_name=fname, last_name=lname,
-                            email=email, birthday=birthday, password=pw_hash)
-        return redirect("/success/{first_name}")
+        User.objects.create(
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name'],
+            birthday=request.POST['birthday'],
+            email=request.POST['email'],
+            password=pw_hash
+        )
+        user = User.objects.filter(email=request.POST['email'])
+        if user:
+            logged_user = user[0]
+            request.session['user_first_name'] = logged_user.first_name
+            request.session['userid'] = logged_user.id
+            request.session['status'] = "Registered"
+        return redirect('/success')
 
 
 def login(request):
-    errors2 = User.objects.login_validator(request.POST)
-    if len(errors2) > 0:
-        for key, value in errors2.items():
-            messages.error(request, value)
-        return redirect('/')
 
-    users = User.objects.filter(email=request.POST['email2'])
-    if users:
-        logged_user = users[0]
-        if bcrypt.checkpw(request.POST['password2'].encode(), logged_user.password.encode()):
-            request.session['username'] = logged_user.first_name
-            request.session['status'] = "logged in"
+    user = User.objects.filter(email=request.POST['email'])
+    print(user)
+    if user:
+        logged_user = user[0]
+        if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
+            request.session['userid'] = logged_user.id
+            request.session['user_first_name'] = logged_user.first_name
+            request.session['status'] = "Logged in"
             return redirect('/success')
-        print("Wrong password")
     return redirect("/")
 
 
 def success(request):
-    # if request.method== "GET":
-    #     return redirect('/')
-    context = {
-        'username': request.session['username'],
-        'status': request.session['status'],
-    }
-    return render(request, "success.html", context)
+
+    if "userid" not in request.session:
+        print("this works")
+        return redirect("/")
+    return render(request, 'success.html')
 
 
-def logout(request):
-    del request.session['username']
-    del request.session['status']
-# request.session.flush()
+def delete(request):
+
+    del request.session['user_first_name']
+    del request.session['user_id']
+
     return redirect('/')

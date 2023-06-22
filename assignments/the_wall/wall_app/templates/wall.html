@@ -1,11 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=h1, initial-scale=hhhh" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h4>welcome <span> {{request.session.user_first_name}}</span></h4>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/wall_style.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h3>Coding Dojo Wall</h3>
+            <h4>Welcome <span class="header_name">{{request.session.user_first_name}}</span></h4>
+            <a href="/delete/">Log out</a>
+        </div>
+        <div id="message_post">
+            <form action="/wall/message_post/" method="post">
+            {% csrf_token %}
+                <h5>Post a message</h5>
+                <input type="hidden" name="user_id" value="{{request.session.userid}}">
+                <textarea name="message_post" id="message_area" cols="80" rows="3" placeholder="What's your message"></textarea>
+                <br>
+                <button type="submit" class="btn btn-primary">Post a message</button>
+            </form>
+        </div>
+        <h4 class="allMessages">All messages</h4>
+        <div id="message_display">
+        {% for user in users %}
+            <div class="logs">
+                <form action="/wall/message_delete/" method="post">
+                {% csrf_token %}
+                {% for message in user.messages.all %}
+                    <h5 id="user_messages">{{user.first_name}} {{user.last_name}} - {{message.created_at}}</h5>
+                    {% if request.session.userid == user.id %}
+                    <div class="user_display_message">
+                        <h5 name="message_id" value="{{ message.id }}" class="messages">{{message.message_text}}</h5>
+                        <button type="submit" class="btn btn-primary" name="user.id" value="{{ user.id }}">delete</button>
+                    </div>
+                    {% endif %}
+                </form>
+                    <h6>Commnets on this message:</h6>
+                    <ul class="comment_display">
+                    {% for comment in message.comments_message.all %}
+                        <li name="comment_id" value="{{ comment.id }}">{{comment.comment_text}} - (this comment was added on: {{comment.created_at}})</li>
+                    {% endfor %}
+                    </ul>
+                <div id="message_comment">
+                    <form action="/wall/message_comment/" method="post">
+                    {% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{request.session.userid}}">
+                        <input type="hidden" name="message_id" value="{{ message.id }}">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <div class="comment_section">
+                            <textarea name="comment_post" id="comment_post" cols="60" rows="1" placeholder="Write a comment"></textarea>
+                            <button type="submit" class="btn btn-primary">Post a comment</button>
+                        </div>
+                    </form>
+                {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</body>
 </html>
+
+
+    {% for ninja in dojo.ninjas.all %}
+        <li class="ninjas_list">{{ninja.first_name}}</li>
+    {% endfor %}
+    </ol>

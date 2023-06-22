@@ -2,75 +2,132 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Registration</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
-
-    <title>Login and Registration</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/index_style.css' %}"
+    />
   </head>
   <body>
-    <div class="loginreg">
-      <div class="form1">
-        <form method="POST" action="/register">
+    <div class="container">
+      <div class="registration">
+        <h2>Registration</h2>
+        <form action="/register/" method="post">
           {% csrf_token %}
-          <table>
-            <tr>
-              <td>First Name:</td>
-              <td><input type="text" name="fname" /></td>
-            </tr>
-            <tr>
-              <td>Last Name:</td>
-              <td><input type="text" name="lname" /></td>
-            </tr>
-            <tr>
-              <td>Email:</td>
-              <td><input type="text" name="email" /></td>
-            </tr>
-            <tr>
-              <td>Birthday:</td>
-              <td><input type="date" name="birthday" /></td>
-            </tr>
-            <tr>
-              <td>Password:</td>
-              <td><input type="password" name="password" /></td>
-            </tr>
-            <tr>
-              <td>Confirm PWD:</td>
-              <td><input type="password" name="pwdconfirm" /></td>
-            </tr>
-            <tr>
-              <td><input type="submit" value="Register" /></td>
-            </tr>
-          </table>
+          <div class="form-col">
+            <div class="col" id="col">
+              <label for="first_name">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your First Name"
+                name="first_name"
+                required
+              />
+            </div>
+            <div class="col" id="col">
+              <label for="last_name">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your Last Name"
+                name="last_name"
+                required
+              />
+            </div>
+            <div class="col" id="col">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter your Email Address"
+                name="email"
+                required
+              />
+            </div>
+            <div class="col" id="col">
+              <label for="birthday">Birthday</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder="Enter your birthday"
+                name="birthday"
+              />
+            </div>
+            <div class="col" id="col">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Choose your Password"
+                name="password"
+                required
+              />
+            </div>
+            <div class="col" id="col">
+              <label for="confirm_password">Password Confirm</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Confirm your Password"
+                name="confirm_password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+          </div>
         </form>
       </div>
-      <div class="form2">
-        <form method="POST" action="/login">
+      <div class="validater">
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="login">
+        <h2>Login</h2>
+        <form action="/login/" , method="post">
           {% csrf_token %}
-          <table>
-            <tr>
-              <td>Email:</td>
-              <td><input type="text" name="email2" /></td>
-            </tr>
-            <tr>
-              <td>Password:</td>
-              <td><input type="password" name="password2" /></td>
-            </tr>
-          </table>
-          <input type="submit" value="Login" />
+          <div class="form-col">
+            <div class="col" id="col">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter your Email Address"
+                name="email"
+                required
+              />
+            </div>
+            <div class="col" id="col">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Enter your Password"
+                name="password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
         </form>
       </div>
-    </div>
-    <div class="errors">
-      {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-          {{ message }}
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
     </div>
   </body>
 </html>
